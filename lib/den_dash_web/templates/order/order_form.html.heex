@@ -1,0 +1,8 @@
+<%= form_for @changeset, Routes.order_path(@conn, :create), fn f -> %>
+  <label>
+    Order number: <%= number_input f, :number %>
+    <%= error_tag f, :number %>
+  </label>
+
+  <%= submit "Submit" %>
+<% end %>

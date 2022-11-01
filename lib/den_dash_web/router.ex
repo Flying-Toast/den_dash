@@ -1,5 +1,7 @@
 defmodule DenDashWeb.Router do
   use DenDashWeb, :router
+  alias DenDashWeb.Router.Helpers, as: Routes
+  alias DenDash.Accounts
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -10,6 +12,18 @@ defmodule DenDashWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  def require_login(conn, _opts) do
+    caseid = Plug.Conn.get_session(conn, :caseid)
+    if caseid == nil do
+      conn
+      |> redirect(to: Routes.login_path(conn, :login))
+      |> halt()
+    else
+      my_user = Accounts.get_or_create_user(caseid)
+      assign(conn, :me, my_user)
+    end
+  end
+
   scope "/", DenDashWeb do
     pipe_through [:browser]
 
@@ -18,10 +32,17 @@ defmodule DenDashWeb.Router do
   end
 
   scope "/", DenDashWeb do
-    pipe_through [:browser]
+    pipe_through [:browser, :require_login]
 
     get "/logout", LoginController, :logout
     get "/", PageController, :index
+
+    scope "/orders" do
+      get "/new", OrderController, :order_form
+      post "/new", OrderController, :create
+
+      get "/:id", OrderController, :show
+    end
   end
 
   # Enables the Swoosh mailbox preview in development.
