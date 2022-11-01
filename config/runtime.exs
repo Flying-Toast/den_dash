@@ -7,6 +7,9 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
+config :den_dash,
+  venmo_api_key: System.get_env("VENMO_API_KEY") || raise "Missing VENMO_API_KEY environment variable"
+
 # Start the phoenix server if environment is set and running in a release
 if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
   config :den_dash, DenDashWeb.Endpoint, server: true
