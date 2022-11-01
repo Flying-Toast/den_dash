@@ -1,0 +1,9 @@
+<h1>Your orders</h1>
+
+<p><%= link "Place an order", to: Routes.order_path(@conn, :order_form) %></p>
+
+<ul>
+  <%= for order <- @orders do %>
+    <li><%= link "Order #{order.number}", to: Routes.order_path(@conn, :show, order.id) %></li>
+  <% end %>
+</ul>

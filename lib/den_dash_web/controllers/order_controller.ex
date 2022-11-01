@@ -23,4 +23,9 @@ defmodule DenDashWeb.OrderController do
     order = Orders.get_order!(id)
     render(conn, "show_order.html", order: order)
   end
+
+  def list(conn, _params) do
+    my_orders = Orders.list_orders_for_user(conn.assigns.me)
+    render(conn, "list_orders.html", orders: my_orders)
+  end
 end

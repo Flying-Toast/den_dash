@@ -38,6 +38,7 @@ defmodule DenDashWeb.Router do
     get "/", PageController, :index
 
     scope "/orders" do
+      get "/", OrderController, :list
       get "/new", OrderController, :order_form
       post "/new", OrderController, :create
 
