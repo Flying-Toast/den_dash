@@ -1,1 +1,9 @@
 <h1>Showing order #<%= @order.number %></h1>
+
+<%= if @order.paid do %>
+  <p>Payment status: <b style="color: green;">PAID</b></p>
+<% else %>
+  <p>Payment status: <b style="color: red;">NOT YET PAID</b>.
+  <%= link "Pay now (DO NOT CHANGE VENMO NOTE!)", to: Routes.order_path(@conn, :pay, @order.id) %>
+  </p>
+<% end %>

@@ -28,4 +28,12 @@ defmodule DenDashWeb.OrderController do
     my_orders = Orders.list_orders_for_user(conn.assigns.me)
     render(conn, "list_orders.html", orders: my_orders)
   end
+
+  def pay(conn, %{"id" => id}) do
+    order = Orders.get_order!(id)
+    username = Application.fetch_env!(:den_dash, :venmo_username_to_receive_payments)
+    venmo_url = "https://venmo.com/?txn=pay&audience=friends&recipients=#{username}&amount=123&note=🥞%20DenDash:%20!#{order.venmo_note_tag}!"
+
+    redirect(conn, external: venmo_url)
+  end
 end
