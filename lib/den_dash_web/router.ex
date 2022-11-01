@@ -10,20 +10,19 @@ defmodule DenDashWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  scope "/", DenDashWeb do
+    pipe_through [:browser]
+
+    get "/login", LoginController, :login
+    get "/sso", LoginController, :auth
   end
 
   scope "/", DenDashWeb do
-    pipe_through :browser
+    pipe_through [:browser]
 
+    get "/logout", LoginController, :logout
     get "/", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", DenDashWeb do
-  #   pipe_through :api
-  # end
 
   # Enables the Swoosh mailbox preview in development.
   #
