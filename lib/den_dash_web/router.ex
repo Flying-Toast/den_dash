@@ -10,23 +10,33 @@ defmodule DenDashWeb.Router do
     plug :put_root_layout, {DenDashWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :me_assign
+  end
+
+  def me_assign(conn, _opts) do
+    caseid = Plug.Conn.get_session(conn, :caseid)
+    if caseid != nil do
+      my_user = Accounts.get_or_create_user(caseid)
+      assign(conn, :me, my_user)
+    else
+      conn
+    end
   end
 
   def require_login(conn, _opts) do
-    caseid = Plug.Conn.get_session(conn, :caseid)
-    if caseid == nil do
+    if Plug.Conn.get_session(conn, :caseid) == nil do
       conn
       |> redirect(to: Routes.login_path(conn, :login))
       |> halt()
     else
-      my_user = Accounts.get_or_create_user(caseid)
-      assign(conn, :me, my_user)
+      conn
     end
   end
 
   scope "/", DenDashWeb do
     pipe_through [:browser]
 
+    get "/", PageController, :index
     get "/login", LoginController, :login
     get "/sso", LoginController, :auth
   end
@@ -34,7 +44,6 @@ defmodule DenDashWeb.Router do
   scope "/", DenDashWeb do
     pipe_through [:browser, :require_login]
 
-    get "/", PageController, :index
     get "/logout", LoginController, :logout
 
     scope "/orders" do
