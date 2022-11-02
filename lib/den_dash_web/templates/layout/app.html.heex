@@ -14,8 +14,10 @@
   </div>
 </header>
 
-<p style="background-color: skyblue;"><%= get_flash(@conn, :info) %></p>
-<p style="background-color: red;"><%= get_flash(@conn, :error) %></p>
+<div class="flex justify-center flex-col">
+  <p class="rounded text-center [&:not(:empty)]:p-2 [&:not(:empty)]:m-4 bg-blue-400"><%= get_flash(@conn, :info) %></p>
+  <p class="rounded text-center [&:not(:empty)]:p-2 [&:not(:empty)]:m-4 bg-red-400"><%= get_flash(@conn, :error) %></p>
+</div>
 
 
 <%= if @conn.assigns[:title] do %>
