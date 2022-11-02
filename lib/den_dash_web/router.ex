@@ -51,6 +51,7 @@ defmodule DenDashWeb.Router do
       get "/new", OrderController, :order_form
       post "/new", OrderController, :create
       get "/:id/pay", OrderController, :pay
+      post ":id/cancel", OrderController, :cancel
 
       get "/:id", OrderController, :show
     end

@@ -52,4 +52,20 @@ defmodule DenDashWeb.OrderController do
       end
     end
   end
+
+  def cancel(conn, %{"id" => id}) do
+    order = Orders.get_order!(id)
+
+    if order.paid do
+      conn
+      |> put_flash(:error, "You cannot cancel this order because it has already been processed.")
+      |> redirect(to: Routes.order_path(conn, :show, order.id))
+    else
+      Orders.delete_order(order)
+
+      conn
+      |> put_flash(:info, "Order has been cancelled.")
+      |> redirect(to: Routes.order_path(conn, :list))
+    end
+  end
 end

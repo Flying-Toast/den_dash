@@ -4,5 +4,10 @@
   <p>
     <b class="text-red-600">NOT YET PAID</b>.
     <%= link "Pay now", to: Routes.order_path(@conn, :pay, @order.id) %>.
+    <% action = Routes.order_path(@conn, :cancel, @order.id) %>
+    <form action={action} method="post">
+      <%= csrf_input_tag(action) %>
+      <input type="submit" value="Cancel Order" class="button">
+    </form>
   </p>
 <% end %>

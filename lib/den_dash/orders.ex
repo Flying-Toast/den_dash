@@ -11,6 +11,10 @@ defmodule DenDash.Orders do
     Repo.get!(Order, id)
   end
 
+  def delete_order(order) do
+    Repo.delete(order)
+  end
+
   def get_order_by_venmo_tag(tag) do
     Repo.one(from o in Order, where: o.venmo_note_tag == ^tag)
   end
