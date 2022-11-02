@@ -11,7 +11,7 @@ defmodule DenDashWeb.OrderController do
     case Orders.new_order(conn.assigns.me, order) do
       {:ok, changeset} ->
         conn
-        |> put_flash(:info, "Your order was placed successfully!")
+        |> put_flash(:info, "Your order has been saved. Please finish payment to complete your delivery order.")
         |> redirect(to: Routes.order_path(conn, :show, changeset.id))
 
       {:error, changeset} ->
@@ -35,9 +35,9 @@ defmodule DenDashWeb.OrderController do
     if order.paid do
       render(conn, "already_paid.html")
     else
-      username = Application.fetch_env!(:den_dash, :venmo_username_to_receive_payments)
+      recipient = Application.fetch_env!(:den_dash, :venmo_recipient)
       amount = Application.fetch_env!(:den_dash, :order_cost)
-      venmo_url = "https://venmo.com/?txn=pay&audience=friends&recipients=#{username}&amount=#{amount}&note=🥞%20DenDash:%20!#{order.venmo_note_tag}!%20Paid"
+      venmo_url = "https://venmo.com/?txn=pay&audience=friends&recipients=#{recipient}&amount=#{amount}&note=🥞%20DenDash:%20!#{order.venmo_note_tag}!%20Paid"
 
       render(conn, "payment_tutorial.html", venmo_url: venmo_url)
     end

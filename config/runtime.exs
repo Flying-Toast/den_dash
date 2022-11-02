@@ -8,7 +8,7 @@ import Config
 # The block below contains prod specific runtime configuration.
 
 config :den_dash,
-  venmo_username_to_receive_payments: "simonschwartz",
+  venmo_recipient: "DenDash",
   notifications_email: "venmo@theschwartz.xyz",
   notifications_email_password: System.get_env("NOTIFICATIONS_EMAIL_PASSWORD") || raise("Missing NOTIFICATIONS_EMAIL_PASSWORD env var"),
   order_cost: 1.0
