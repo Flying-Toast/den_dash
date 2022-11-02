@@ -9,3 +9,11 @@ a {
 h1 {
 	@apply text-3xl text-center;
 }
+
+li {
+	@apply my-2;
+}
+
+li::before {
+	content: "👉 ";
+}
