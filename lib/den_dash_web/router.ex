@@ -34,8 +34,8 @@ defmodule DenDashWeb.Router do
   scope "/", DenDashWeb do
     pipe_through [:browser, :require_login]
 
-    get "/logout", LoginController, :logout
     get "/", PageController, :index
+    get "/logout", LoginController, :logout
 
     scope "/orders" do
       get "/", OrderController, :list

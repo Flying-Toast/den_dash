@@ -31,11 +31,15 @@ defmodule DenDashWeb.OrderController do
 
   def pay(conn, %{"id" => id}) do
     order = Orders.get_order!(id)
-    username = Application.fetch_env!(:den_dash, :venmo_username_to_receive_payments)
-    amount = Application.fetch_env!(:den_dash, :order_cost)
 
-    venmo_url = "https://venmo.com/?txn=pay&audience=friends&recipients=#{username}&amount=#{amount}&note=🥞%20DenDash:%20!#{order.venmo_note_tag}!%20Paid"
+    if order.paid do
+      render(conn, "already_paid.html")
+    else
+      username = Application.fetch_env!(:den_dash, :venmo_username_to_receive_payments)
+      amount = Application.fetch_env!(:den_dash, :order_cost)
+      venmo_url = "https://venmo.com/?txn=pay&audience=friends&recipients=#{username}&amount=#{amount}&note=🥞%20DenDash:%20!#{order.venmo_note_tag}!%20Paid"
 
-    redirect(conn, external: venmo_url)
+      render(conn, "payment_tutorial.html", venmo_url: venmo_url)
+    end
   end
 end
