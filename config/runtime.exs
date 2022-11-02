@@ -8,9 +8,10 @@ import Config
 # The block below contains prod specific runtime configuration.
 
 config :den_dash,
-  venmo_api_key: System.get_env("VENMO_API_KEY") || raise("Missing VENMO_API_KEY environment variable"),
-  my_own_venmo_user_id: "3662158055343273075",
-  venmo_username_to_receive_payments: "simonschwartz"
+  venmo_username_to_receive_payments: "simonschwartz",
+  notifications_email: "venmo@theschwartz.xyz",
+  notifications_email_password: System.get_env("NOTIFICATIONS_EMAIL_PASSWORD") || raise("Missing NOTIFICATIONS_EMAIL_PASSWORD env var"),
+  order_cost: 1.0
 
 # Start the phoenix server if environment is set and running in a release
 if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do

@@ -11,6 +11,16 @@ defmodule DenDash.Orders do
     Repo.get!(Order, id)
   end
 
+  def get_order_by_venmo_tag(tag) do
+    Repo.one(from o in Order, where: o.venmo_note_tag == ^tag)
+  end
+
+  def mark_order_as_paid(order) do
+    order
+    |> change(paid: true)
+    |> Repo.update()
+  end
+
   defp gen_venmo_tag() do
     tag =
       :crypto.strong_rand_bytes(5)

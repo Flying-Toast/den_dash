@@ -15,7 +15,8 @@ defmodule DenDash.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: DenDash.PubSub},
       # Start the Endpoint (http/https)
-      DenDashWeb.Endpoint
+      DenDashWeb.Endpoint,
+      DenDash.PaymentWatcher
       # Start a worker by calling: DenDash.Worker.start_link(arg)
       # {DenDash.Worker, arg}
     ]
