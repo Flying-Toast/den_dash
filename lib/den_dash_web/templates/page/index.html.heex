@@ -1,3 +1,5 @@
-<%= link "Place an order", to: Routes.order_path(@conn, :order_form) %>
-<br>
-<%= link "My orders", to: Routes.order_path(@conn, :list) %>
+<%= if assigns[:me] do %>
+  <%= render("_logged_in_index.html", assigns) %>
+<% else %>
+  <%= render("_logged_out_index.html", assigns) %>
+<% end %>
