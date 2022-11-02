@@ -1,8 +1,13 @@
 <%= form_for @changeset, Routes.order_path(@conn, :create), fn f -> %>
-  <label>
-    GrubHub order number: <%= number_input f, :number %>
-    <%= error_tag f, :number %>
-  </label>
+  <div class="w-10/12 p-4 mx-auto border border-black">
+    <label>
+      <p>GrubHub order number:</p>
+      <p><%= error_tag f, :number %></p>
+      <p><%= text_input f, :number, class: "text-center font-bold w-20", inputmode: "numeric" %></p>
+    </label>
 
-  <%= submit "Submit", class: "button" %>
+    <p class="mt-8 text-center">
+      <%= submit "Submit", class: "button" %>
+    </p>
+  </div>
 <% end %>
