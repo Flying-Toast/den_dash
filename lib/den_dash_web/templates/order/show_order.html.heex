@@ -1,8 +1,8 @@
 <%= if @order.paid do %>
-  <p>Payment status: <b style="color: green;">PAID</b></p>
+  <p class="text-green-700 font-bold">PAID</p>
 <% else %>
   <p>
-    <b style="color: red;">NOT YET PAID</b>.
+    <b class="text-red-600">NOT YET PAID</b>.
     <%= link "Pay now", to: Routes.order_path(@conn, :pay, @order.id) %>.
   </p>
 <% end %>
