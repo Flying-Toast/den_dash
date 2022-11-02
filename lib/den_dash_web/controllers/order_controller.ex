@@ -4,14 +4,14 @@ defmodule DenDashWeb.OrderController do
 
   def order_form(conn, _params) do
     changeset = Order.changeset(%Order{})
-    render(conn, "order_form.html", title: "Place Order 📝", changeset: changeset)
+    render(conn, "order_form.html", title: "Submit Order 📝", changeset: changeset)
   end
 
   def create(conn, %{"order" => order}) do
     if Orders.user_has_unpaid_order(conn.assigns.me) do
       conn
       |> put_flash(:error, "You have another order that has not yet been paid. Please complete payment or cancel it before placing another.")
-      |> render("order_form.html", title: "Place Order 📝", changeset: Order.changeset(%Order{}, order))
+      |> render("order_form.html", title: "Submit Order 📝", changeset: Order.changeset(%Order{}, order))
     else
       case Orders.new_order(conn.assigns.me, order) do
         {:ok, changeset} ->
@@ -20,7 +20,7 @@ defmodule DenDashWeb.OrderController do
           |> redirect(to: Routes.order_path(conn, :show, changeset.id))
 
         {:error, changeset} ->
-          render(conn, "order_form.html", title: "Place Order 📝", changeset: changeset)
+          render(conn, "order_form.html", title: "Submit Order 📝", changeset: changeset)
       end
     end
   end
