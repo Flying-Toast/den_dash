@@ -10,6 +10,11 @@ defmodule DenDashWeb.Endpoint do
     signing_salt: "bpVLNLCp"
   ]
 
+  def fudge_server_header(conn, _opts) do
+    put_resp_header(conn, "server", "Pancakes v1.7.2")
+  end
+  plug :fudge_server_header
+
   # socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
