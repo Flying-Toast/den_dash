@@ -17,4 +17,9 @@
 <p style="background-color: skyblue;"><%= get_flash(@conn, :info) %></p>
 <p style="background-color: red;"><%= get_flash(@conn, :error) %></p>
 
+
+<%= if @conn.assigns[:title] do %>
+  <h1><%= @title %></h1>
+<% end %>
+
 <%= @inner_content %>

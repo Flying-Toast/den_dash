@@ -5,3 +5,7 @@
 a {
 	@apply underline text-blue-700;
 }
+
+h1 {
+	@apply text-3xl text-center;
+}

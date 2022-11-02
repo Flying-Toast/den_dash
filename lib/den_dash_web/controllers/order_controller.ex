@@ -21,12 +21,12 @@ defmodule DenDashWeb.OrderController do
 
   def show(conn, %{"id" => id}) do
     order = Orders.get_order!(id)
-    render(conn, "show_order.html", order: order)
+    render(conn, "show_order.html", title: "Order ##{order.number}", order: order)
   end
 
   def list(conn, _params) do
     my_orders = Orders.list_orders_for_user(conn.assigns.me)
-    render(conn, "list_orders.html", orders: my_orders)
+    render(conn, "list_orders.html", title: "Your Orders", orders: my_orders)
   end
 
   def pay(conn, %{"id" => id}) do
