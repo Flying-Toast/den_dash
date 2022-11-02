@@ -2,7 +2,7 @@
   <p>Payment status: <b style="color: green;">PAID</b></p>
 <% else %>
   <p>
-    Payment status: <b style="color: red;">NOT YET PAID</b>.
+    <b style="color: red;">NOT YET PAID</b>.
     <%= link "Pay now", to: Routes.order_path(@conn, :pay, @order.id) %>.
   </p>
 <% end %>

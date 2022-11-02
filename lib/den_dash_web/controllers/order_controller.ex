@@ -21,12 +21,12 @@ defmodule DenDashWeb.OrderController do
 
   def show(conn, %{"id" => id}) do
     order = Orders.get_order!(id)
-    render(conn, "show_order.html", title: "Order ##{order.number}", order: order)
+    render(conn, "show_order.html", title: "Order ##{order.number} 🥡", order: order)
   end
 
   def list(conn, _params) do
     my_orders = Orders.list_orders_for_user(conn.assigns.me)
-    render(conn, "list_orders.html", title: "Your Orders", orders: my_orders)
+    render(conn, "list_orders.html", title: "Your Orders 📦", orders: my_orders)
   end
 
   def pay(conn, %{"id" => id}) do
@@ -40,7 +40,7 @@ defmodule DenDashWeb.OrderController do
       venmo_url = "https://venmo.com/?txn=pay&audience=friends&recipients=#{recipient}&amount=#{amount}&note=🥞%20DenDash:%20!#{order.venmo_note_tag}!%20Paid"
 
       if Orders.should_show_payment_tutorial_for_user(conn.assigns.me) do
-        render(conn, "payment_tutorial.html", venmo_url: venmo_url)
+        render(conn, "payment_tutorial.html", title: "Payment 💰", venmo_url: venmo_url)
       else
         redirect(conn, external: venmo_url)
       end
