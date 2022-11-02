@@ -15,6 +15,10 @@ defmodule DenDash.Orders do
     Repo.one(from o in Order, where: o.venmo_note_tag == ^tag)
   end
 
+  def should_show_payment_tutorial_for_user(user) do
+    not Repo.exists?(from o in Order, where: o.user_id == ^user.id and o.paid)
+  end
+
   def mark_order_as_paid(order) do
     order
     |> change(paid: true)

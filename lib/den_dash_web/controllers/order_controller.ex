@@ -39,7 +39,11 @@ defmodule DenDashWeb.OrderController do
       amount = Application.fetch_env!(:den_dash, :order_cost)
       venmo_url = "https://venmo.com/?txn=pay&audience=friends&recipients=#{recipient}&amount=#{amount}&note=🥞%20DenDash:%20!#{order.venmo_note_tag}!%20Paid"
 
-      render(conn, "payment_tutorial.html", venmo_url: venmo_url)
+      if Orders.should_show_payment_tutorial_for_user(conn.assigns.me) do
+        render(conn, "payment_tutorial.html", venmo_url: venmo_url)
+      else
+        redirect(conn, external: venmo_url)
+      end
     end
   end
 end
