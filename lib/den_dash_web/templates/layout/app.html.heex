@@ -14,15 +14,14 @@
   </div>
 </header>
 
+<%= if @conn.assigns[:title] do %>
+  <h1 class="mt-2 mb-4 font-bold underline underline-offset-8 decoration-wavy"><%= @title %></h1>
+<% end %>
+
 <div class="flex justify-center flex-col">
   <p class="rounded text-center [&:not(:empty)]:p-2 [&:not(:empty)]:m-4 bg-blue-400"><%= get_flash(@conn, :info) %></p>
   <p class="rounded text-center [&:not(:empty)]:p-2 [&:not(:empty)]:m-4 bg-red-400"><%= get_flash(@conn, :error) %></p>
 </div>
-
-
-<%= if @conn.assigns[:title] do %>
-  <h1 class="mt-2 mb-4 font-bold underline underline-offset-8 decoration-wavy"><%= @title %></h1>
-<% end %>
 
 <main class="mx-2">
   <%= @inner_content %>
