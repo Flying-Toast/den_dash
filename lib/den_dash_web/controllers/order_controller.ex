@@ -8,14 +8,20 @@ defmodule DenDashWeb.OrderController do
   end
 
   def create(conn, %{"order" => order}) do
-    case Orders.new_order(conn.assigns.me, order) do
-      {:ok, changeset} ->
-        conn
-        |> put_flash(:info, "Your order has been saved. Please finish payment to complete your delivery order.")
-        |> redirect(to: Routes.order_path(conn, :show, changeset.id))
+    if Orders.user_has_unpaid_order(conn.assigns.me) do
+      conn
+      |> put_flash(:error, "You have another order that has not yet been paid. Please complete payment or cancel it before placing another.")
+      |> render("order_form.html", changeset: Order.changeset(%Order{}, order))
+    else
+      case Orders.new_order(conn.assigns.me, order) do
+        {:ok, changeset} ->
+          conn
+          |> put_flash(:info, "Your order has been saved. Please finish payment to complete your delivery order.")
+          |> redirect(to: Routes.order_path(conn, :show, changeset.id))
 
-      {:error, changeset} ->
-        render(conn, "order_form.html", changeset: changeset)
+        {:error, changeset} ->
+          render(conn, "order_form.html", changeset: changeset)
+      end
     end
   end
 

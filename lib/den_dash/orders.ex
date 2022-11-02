@@ -48,4 +48,8 @@ defmodule DenDash.Orders do
     |> Order.changeset(order_attrs)
     |> Repo.insert()
   end
+
+  def user_has_unpaid_order(user) do
+    Repo.exists?(from o in Order, where: o.user_id == ^user.id and not o.paid)
+  end
 end
