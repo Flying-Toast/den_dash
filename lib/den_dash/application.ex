@@ -5,8 +5,14 @@ defmodule DenDash.Application do
 
   use Application
 
+  @should_migrate Mix.env() == :prod
+
   @impl true
   def start(_type, _args) do
+    if @should_migrate do
+      DenDash.Release.migrate()
+    end
+
     children = [
       # Start the Ecto repository
       DenDash.Repo,
