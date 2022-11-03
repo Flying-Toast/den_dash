@@ -5,6 +5,10 @@
   <li>If you have any issues at all, please <%= link "let us know", to: Routes.page_path(@conn, :support) %> and we'll issue you a refund.</li>
 </ul>
 
+<p class="mt-8 text-center">
+  <%= link "Continue to Venmo", to: @venmo_url, class: "button-blue", target: "_blank", onclick: "payClicked()" %>
+</p>
+
 <script>
   if (location.hash == "#refresh") {
     setTimeout(() => location.reload(), 3000);
@@ -15,4 +19,3 @@
     location.reload();
   }
 </script>
-<p><%= link "Continue to Venmo", to: @venmo_url, class: "button-blue", target: "_blank", onclick: "payClicked()" %></p>
