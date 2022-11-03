@@ -1,6 +1,7 @@
 <%= if @order.paid do %>
   <p>This order is being processed! It will be dropped off in Carlton Commons during the next delivery slot.</p>
 <% else %>
+  <p class="text-center mb-4">Please complete payment to receive delivery.</p>
   <div class="flex justify-center">
     <%= link "Pay now", to: Routes.order_path(@conn, :pay, @order.id), class: "button-blue mr-2" %>
     <% action = Routes.order_path(@conn, :cancel, @order.id) %>

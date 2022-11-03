@@ -16,7 +16,7 @@ defmodule DenDashWeb.OrderController do
       case Orders.new_order(conn.assigns.me, order) do
         {:ok, changeset} ->
           conn
-          |> put_flash(:info, "Your order has been saved. Please finish payment to complete your delivery order.")
+          |> put_flash(:info, "Your order has been saved.")
           |> redirect(to: Routes.order_path(conn, :show, changeset.id))
 
         {:error, changeset} ->
