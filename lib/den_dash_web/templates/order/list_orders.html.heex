@@ -1,7 +1,10 @@
-<p><%= link "Submit an order", to: Routes.order_path(@conn, :order_form) %></p>
-
-<ul>
-  <%= for order <- @orders do %>
-    <li><%= link "Order #{order.number}", to: Routes.order_path(@conn, :show, order.id) %></li>
-  <% end %>
-</ul>
+<%= if length(@orders) == 0 do %>
+  You don't have any orders yet.
+  Would you like to <%= link "submit a new one", to: Routes.order_path(@conn, :order_form) %>?
+<% else %>
+  <ul>
+    <%= for order <- @orders do %>
+      <li><%= link "Order #{order.number}", to: Routes.order_path(@conn, :show, order.id) %></li>
+    <% end %>
+  </ul>
+<% end %>
