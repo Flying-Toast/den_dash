@@ -4,7 +4,16 @@
 <% else %>
   <ul>
     <%= for order <- @orders do %>
-      <li><%= link "Order #{order.number}", to: Routes.order_path(@conn, :show, order.id) %></li>
+      <li>
+        <%= link "Order #{order.number}", to: Routes.order_path(@conn, :show, order.id) %>
+        <%= cond do %>
+          <% order.delivered -> %>
+            - <span class="text-green-600 font-bold">Delivered</span>
+
+          <% order.picked_up -> %>
+            - <span class="text-gray-600 font-bold">On its way</span>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 <% end %>
