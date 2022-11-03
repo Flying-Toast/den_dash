@@ -1,5 +1,5 @@
 <%= form_for @changeset, Routes.order_path(@conn, :create), fn f -> %>
-  <div class="w-10/12 p-4 mx-auto border border-black">
+  <div class="w-10/12 mt-4 p-4 mx-auto border border-black">
     <label>
       <p>GrubHub order number:</p>
       <p><%= error_tag f, :number %></p>
@@ -12,7 +12,9 @@
       <p><%= text_input f, :grubhub_name, class: "py-1" %></p>
     </label>
 
-    <p class="mt-8 text-center">
+    <p class="mt-8">Make sure you have placed the order through GrubHub normally before submitting it to DenDash for delivery.</p>
+
+    <p class="mt-4 text-center">
       <%= submit "Submit", class: "button-blue" %>
     </p>
   </div>
