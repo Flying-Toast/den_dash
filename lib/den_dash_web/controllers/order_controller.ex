@@ -60,7 +60,7 @@ defmodule DenDashWeb.OrderController do
       Orders.delete_order(order)
 
       conn
-      |> put_flash(:info, "Order has been cancelled.")
+      |> put_flash(:info, "Order ##{order.number} has been cancelled.")
       |> redirect(to: Routes.order_path(conn, :list))
     end
   end
