@@ -8,7 +8,9 @@
     <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}>
     <script defer type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
-  <body class="bg-gray-200 text-gray-800">
-    <%= @inner_content %>
+  <body class="bg-red-500 text-gray-800 flex flex-col">
+    <div class="bg-gray-200" style="height: 100dvh;">
+      <%= @inner_content %>
+    </div>
   </body>
 </html>
