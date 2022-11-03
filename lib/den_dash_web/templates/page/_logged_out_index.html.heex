@@ -1,1 +1,11 @@
-<p>Hi this is dendash. It's pretty cool n' stuff. You should log in and order something.</p>
+<h1 class="text-center text-6xl font-serif mt-2 mb-4">Den,<br>Delivered.</h1>
+
+<div class="flex flex-col items-center">
+  <ol class="text-lg">
+    <li>1. Order Den on GrubHub</li>
+    <li>2. Submit to DenDash</li>
+    <li>3. Pick up in Carlton Commons</li>
+  </ol>
+
+  <%= link "Get Started", class: "button-green mt-4", to: Routes.login_path(@conn, :login) %>
+</div>
