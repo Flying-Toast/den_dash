@@ -6,7 +6,7 @@
   <div class="flex items-center">
     <div class="justify-self-end">
       <%= if @conn.assigns[:me] do %>
-        <p><%= @me.caseid %></p>
+        <p><%= link "Log out", to: Routes.login_path(@conn, :logout), class: "button-red" %></p>
       <% else %>
         <%= link "Log in", class: "button-blue", to: Routes.login_path(@conn, :login) %>
       <% end %>
