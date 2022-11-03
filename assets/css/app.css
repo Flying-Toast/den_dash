@@ -25,6 +25,11 @@ li::before {
 	cursor: pointer;
 }
 
+.button-blue {
+	@apply no-underline border-2 bg-blue-300 py-1 px-4 rounded text-blue-800 border-blue-800;
+	cursor: pointer;
+}
+
 .invalid-feedback {
 	@apply text-red-600 font-bold;
 }

@@ -1,13 +1,13 @@
 <%= if @order.paid do %>
-  <p class="text-green-700 font-bold">PAID</p>
+  <p class="text-center">This order is being processed! It will be dropped off in Carlton Commons during the next delivery slot.</p>
 <% else %>
-  <p>
-    <b class="text-red-600">NOT YET PAID</b>.
-    <%= link "Pay now", to: Routes.order_path(@conn, :pay, @order.id) %>.
+  <div class="flex justify-center">
+    <%= link "Pay now", to: Routes.order_path(@conn, :pay, @order.id), class: "button-blue mr-2" %>
     <% action = Routes.order_path(@conn, :cancel, @order.id) %>
+
     <form action={action} method="post">
       <%= csrf_input_tag(action) %>
       <input type="submit" value="Cancel Order" class="button">
     </form>
-  </p>
+  </div>
 <% end %>
