@@ -39,7 +39,7 @@ defmodule DenDashWeb.OrderController do
     order = Orders.get_order!(id)
 
     if order.paid do
-      render(conn, "already_paid.html")
+      render(conn, "payment_received.html", title: "Payment Received 👍")
     else
       recipient = Application.fetch_env!(:den_dash, :venmo_recipient)
       amount = Application.fetch_env!(:den_dash, :order_cost)

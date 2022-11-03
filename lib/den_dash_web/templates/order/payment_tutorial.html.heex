@@ -1,8 +1,18 @@
 <ul>
   <li>DenDash only accepts payment through Venmo.</li>
   <li>Do not change the generated Venmo note, otherwise your payment will not be detected.</li>
-  <li>It can take several seconds after sending the Venmo for the payment to be reflected in DenDash.</li>
+  <li>Once you pay, come back and reload this page. It may take several seconds after sending the Venmo for the payment to be reflected in DenDash.</li>
   <li>If you have any issues, please [contact support](CONTACT SUPPORT LINK) for a refund.</li>
 </ul>
 
-<p><%= link "Continue to Venmo", to: @venmo_url %></p>
+<script>
+  if (location.hash == "#refresh") {
+    setTimeout(() => location.reload(), 3000);
+  }
+
+  function payClicked() {
+    location.hash = "refresh";
+    location.reload();
+  }
+</script>
+<p><%= link "Continue to Venmo", to: @venmo_url, target: "_blank", onclick: "payClicked()" %></p>
