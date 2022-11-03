@@ -8,6 +8,6 @@
   </p>
 
   <%= if DenDash.Accounts.employee?(@me) do %>
-    <%= link "Order Fulfilment", class: "button-gray mt-3", to: Routes.fulfilment_path(@conn, :index) %>
+    <%= link "Order fulfilment", class: "button-gray mt-3", to: Routes.fulfilment_path(@conn, :index) %>
   <% end %>
 </div>
