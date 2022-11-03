@@ -20,7 +20,7 @@ li::before {
 	content: "👉 ";
 }
 
-.button {
+.button-red {
 	@apply no-underline border-2 bg-red-300 py-1 px-4 rounded text-red-800 border-red-800;
 	cursor: pointer;
 }

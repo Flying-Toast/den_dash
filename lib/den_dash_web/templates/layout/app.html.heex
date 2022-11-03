@@ -8,7 +8,7 @@
       <%= if @conn.assigns[:me] do %>
         <p><%= @me.caseid %></p>
       <% else %>
-        <%= link "Log in", class: "button", to: Routes.login_path(@conn, :login) %>
+        <%= link "Log in", class: "button-blue", to: Routes.login_path(@conn, :login) %>
       <% end %>
     </div>
   </div>
