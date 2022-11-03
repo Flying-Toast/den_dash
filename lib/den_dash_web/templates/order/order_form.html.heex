@@ -6,6 +6,12 @@
       <p><%= text_input f, :number, class: "text-center font-bold w-20 py-1", inputmode: "numeric" %></p>
     </label>
 
+    <label>
+      <p>Full name on GrubHub account:</p>
+      <p><%= error_tag f, :grubhub_name %></p>
+      <p><%= text_input f, :grubhub_name, class: "py-1" %></p>
+    </label>
+
     <p class="mt-8 text-center">
       <%= submit "Submit", class: "button-blue" %>
     </p>
