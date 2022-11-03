@@ -3,13 +3,13 @@
     <label>
       <p>GrubHub order number:</p>
       <p><%= error_tag f, :number %></p>
-      <p><%= text_input f, :number, class: "text-center font-bold w-20 py-1", inputmode: "numeric" %></p>
+      <p><%= text_input f, :number, class: "py-1 rounded border-2 text-center font-bold w-20", inputmode: "numeric" %></p>
     </label>
 
     <label>
       <p>Full name on GrubHub account:</p>
       <p><%= error_tag f, :grubhub_name %></p>
-      <p><%= text_input f, :grubhub_name, class: "py-1" %></p>
+      <p><%= text_input f, :grubhub_name, class: "py-1 rounded border-2" %></p>
     </label>
 
     <p class="mt-8">Make sure you have placed the order through GrubHub before submitting it to DenDash for delivery.</p>
