@@ -45,13 +45,14 @@ defmodule DenDashWeb.Router do
     pipe_through [:browser, :require_login]
 
     get "/logout", LoginController, :logout
+    get "/support", PageController, :support
 
     scope "/orders" do
       get "/", OrderController, :list
       get "/new", OrderController, :order_form
       post "/new", OrderController, :create
       get "/:id/pay", OrderController, :pay
-      post ":id/cancel", OrderController, :cancel
+      post "/:id/cancel", OrderController, :cancel
 
       get "/:id", OrderController, :show
     end
