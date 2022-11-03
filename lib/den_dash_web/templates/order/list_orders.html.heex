@@ -11,7 +11,13 @@
           - <span class="text-green-600 font-bold">Delivered</span>
 
         <% order.picked_up -> %>
-          - <span class="text-gray-600 font-bold">On its way</span>
+          - <span class="text-blue-600 font-bold">On the way</span>
+
+        <% order.paid -> %>
+          - <span class="text-blue-600 font-bold">Paid</span>
+
+        <% true -> %>
+          - <span class="text-red-600 font-bold">Unpaid</span>
       <% end %>
     </li>
   <% end %>
