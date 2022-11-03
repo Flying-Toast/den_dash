@@ -3,12 +3,24 @@ defmodule DenDash.Orders do
   import Ecto.Changeset
   alias DenDash.{Repo, Orders.Order}
 
+  def unpicked_paid_orders() do
+    Repo.all(from o in Order, where: o.paid and not o.picked_up)
+  end
+
+  def undelivered_picked_orders() do
+    Repo.all(from o in Order, where: o.picked_up and not o.delivered)
+  end
+
   def list_orders_for_user(user) do
     Repo.all(from o in Order, where: o.user_id == ^user.id, order_by: [desc: :inserted_at])
   end
 
   def get_order_for_user!(user, order_id) do
     Repo.one!(from o in Order, where: o.id == ^order_id and o.user_id == ^user.id)
+  end
+
+  def get_order_directly!(order_id) do
+    Repo.get!(Order, order_id)
   end
 
   def delete_order(order) do
@@ -22,6 +34,18 @@ defmodule DenDash.Orders do
   def mark_order_as_paid(order) do
     order
     |> change(paid: true)
+    |> Repo.update()
+  end
+
+  def mark_order_as_picked_up(order) do
+    order
+    |> change(picked_up: true)
+    |> Repo.update()
+  end
+
+  def mark_order_as_delivered(order) do
+    order
+    |> change(delivered: true)
     |> Repo.update()
   end
 
@@ -43,7 +67,9 @@ defmodule DenDash.Orders do
     |> change(%{
       user_id: user.id,
       venmo_note_tag: gen_venmo_tag(),
-      paid: false
+      paid: false,
+      picked_up: false,
+      delivered: false
     })
     |> Order.changeset(order_attrs)
     |> Repo.insert()

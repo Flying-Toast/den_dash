@@ -33,6 +33,19 @@ defmodule DenDashWeb.Router do
     end
   end
 
+  def employees_only(conn, _opts) do
+    if Accounts.employee?(conn.assigns.me) do
+      conn
+    else
+      conn
+      |> put_status(404)
+      |> put_root_layout(false)
+      |> put_view(DenDashWeb.ErrorView)
+      |> render("404.html")
+      |> halt()
+    end
+  end
+
   scope "/", DenDashWeb do
     pipe_through [:browser]
 
@@ -57,6 +70,14 @@ defmodule DenDashWeb.Router do
 
       get "/:id", OrderController, :show
     end
+  end
+
+  scope "/fulfilment", DenDashWeb do
+    pipe_through [:browser, :require_login, :employees_only]
+
+    get "/", FulfilmentController, :index
+    post "/pickup", FulfilmentController, :picked_up
+    post "/deliver", FulfilmentController, :delivered
   end
 
   # Enables the Swoosh mailbox preview in development.

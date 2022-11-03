@@ -1,0 +1,40 @@
+<h2 class="mt-2">Orders to pick up:</h2>
+
+<%= if length(@pickups) == 0 do %>
+  None right now!
+<% else %>
+  <ul>
+    <%= for order <- @pickups do %>
+      <li>
+        #<%= order.number %> (<%= order.grubhub_name %>)
+        <% action = Routes.fulfilment_path(@conn, :picked_up) %>
+        <form class="inline" action={action} method="post">
+          <%= csrf_input_tag(action) %>
+          <input type="hidden" name="id" value={order.id}>
+          <input type="submit" value="Mark as picked-up" class="button-blue">
+        </form>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<h2 class="mt-2">Undelivered Orders:</h2>
+
+<%= if length(@deliveries) == 0 do %>
+  None right now!
+<% else %>
+  <ul>
+    <%= for order <- @deliveries do %>
+      <li>
+        #<%= order.number %> (<%= order.grubhub_name %>)
+        <% action = Routes.fulfilment_path(@conn, :delivered) %>
+        <form class="inline" action={action} method="post">
+          <%= csrf_input_tag(action) %>
+          <input type="hidden" name="id" value={order.id}>
+          <input type="submit" value="Mark as delivered" class="button-blue">
+        </form>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

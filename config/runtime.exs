@@ -10,7 +10,8 @@ import Config
 config :den_dash,
   venmo_recipient: "DenDash",
   notifications_email: "venmo@theschwartz.xyz",
-  order_cost: 1.0
+  order_cost: 1.0,
+  employee_caseids: ["srs266"]
 
 # Start the phoenix server if environment is set and running in a release
 if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do

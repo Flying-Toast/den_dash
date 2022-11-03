@@ -39,6 +39,11 @@ ul li::before {
 	cursor: pointer;
 }
 
+.button-gray {
+	@apply inline-block no-underline border-2 bg-gray-300 py-1 px-4 rounded text-gray-800 border-gray-800;
+	cursor: pointer;
+}
+
 .invalid-feedback {
 	@apply text-red-600 font-bold;
 }

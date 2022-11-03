@@ -29,4 +29,8 @@ defmodule DenDash.Accounts do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
+  def employee?(user) do
+    user.caseid in Application.fetch_env!(:den_dash, :employee_caseids)
+  end
 end
