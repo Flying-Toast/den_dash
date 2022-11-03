@@ -10,7 +10,6 @@ import Config
 config :den_dash,
   venmo_recipient: "DenDash",
   notifications_email: "venmo@theschwartz.xyz",
-  notifications_email_password: System.get_env("NOTIFICATIONS_EMAIL_PASSWORD") || raise("Missing NOTIFICATIONS_EMAIL_PASSWORD env var"),
   order_cost: 1.0
 
 # Start the phoenix server if environment is set and running in a release
@@ -19,6 +18,10 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
 end
 
 if config_env() == :prod do
+  config :den_dash,
+    notifications_email_password: System.get_env("NOTIFICATIONS_EMAIL_PASSWORD") ||
+                                    raise("Missing NOTIFICATIONS_EMAIL_PASSWORD env var")
+
   database_path =
     System.get_env("DATABASE_PATH") ||
       raise """

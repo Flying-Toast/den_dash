@@ -5,11 +5,11 @@ defmodule DenDash.Application do
 
   use Application
 
-  @should_migrate Mix.env() == :prod
+  @mix_env_prod Mix.env() == :prod
 
   @impl true
   def start(_type, _args) do
-    if @should_migrate do
+    if @mix_env_prod do
       DenDash.Release.migrate()
     end
 
@@ -21,11 +21,10 @@ defmodule DenDash.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: DenDash.PubSub},
       # Start the Endpoint (http/https)
-      DenDashWeb.Endpoint,
-      DenDash.PaymentWatcher
+      DenDashWeb.Endpoint
       # Start a worker by calling: DenDash.Worker.start_link(arg)
       # {DenDash.Worker, arg}
-    ]
+    ] ++ List.wrap(if @mix_env_prod, do: DenDash.PaymentWatcher)
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
