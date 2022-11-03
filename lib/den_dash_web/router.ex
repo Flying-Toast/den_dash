@@ -45,6 +45,7 @@ defmodule DenDashWeb.Router do
     pipe_through [:browser, :require_login]
 
     get "/logout", LoginController, :logout
+    # Support page requires login because it exposes my email
     get "/support", PageController, :support
 
     scope "/orders" do
