@@ -3,7 +3,7 @@ defmodule DenDashWeb.OrderController do
   alias DenDash.{Orders, Orders.Order}
 
   def order_form(conn, _params) do
-    changeset = Order.changeset(%Order{})
+    changeset = Order.changeset(%Order{}, %{grubhub_name: Orders.name_on_users_most_recent_order(conn.assigns.me)})
     render(conn, "order_form.html", title: "Submit Order 📝", changeset: changeset)
   end
 

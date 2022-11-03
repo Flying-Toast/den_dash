@@ -52,4 +52,14 @@ defmodule DenDash.Orders do
   def user_has_unpaid_order(user) do
     Repo.exists?(from o in Order, where: o.user_id == ^user.id and not o.paid)
   end
+
+  def name_on_users_most_recent_order(user) do
+    order = Repo.one(from o in Order, where: o.user_id == ^user.id, order_by: [desc: :inserted_at], limit: 1)
+
+    if order do
+      order.grubhub_name
+    else
+      ""
+    end
+  end
 end
