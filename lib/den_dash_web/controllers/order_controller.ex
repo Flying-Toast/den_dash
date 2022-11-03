@@ -26,7 +26,7 @@ defmodule DenDashWeb.OrderController do
   end
 
   def show(conn, %{"id" => id}) do
-    order = Orders.get_order!(id)
+    order = Orders.get_order_for_user!(conn.assigns.me, id)
     render(conn, "show_order.html", title: "Order ##{order.number} 🥡", order: order)
   end
 
@@ -36,7 +36,7 @@ defmodule DenDashWeb.OrderController do
   end
 
   def pay(conn, %{"id" => id}) do
-    order = Orders.get_order!(id)
+    order = Orders.get_order_for_user!(conn.assigns.me, id)
 
     if order.paid do
       render(conn, "payment_received.html", title: "Payment Received 👍")
@@ -50,7 +50,7 @@ defmodule DenDashWeb.OrderController do
   end
 
   def cancel(conn, %{"id" => id}) do
-    order = Orders.get_order!(id)
+    order = Orders.get_order_for_user!(conn.assigns.me, id)
 
     if order.paid do
       conn

@@ -7,8 +7,8 @@ defmodule DenDash.Orders do
     Repo.all(from o in Order, where: o.user_id == ^user.id, order_by: [desc: :inserted_at])
   end
 
-  def get_order!(id) do
-    Repo.get!(Order, id)
+  def get_order_for_user!(user, order_id) do
+    Repo.one!(from o in Order, where: o.id == ^order_id and o.user_id == ^user.id)
   end
 
   def delete_order(order) do
