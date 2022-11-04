@@ -6,7 +6,7 @@
 </ul>
 
 <p class="mt-8 text-center">
-  <%= link "Continue to Venmo", to: @venmo_url, class: "button-blue", target: "_blank", onclick: "payClicked()" %>
+  <%= link "Continue to Venmo", to: @venmo_url, class: "button-blue", onclick: "payClicked()" %>
 </p>
 
 <script>
@@ -16,6 +16,6 @@
 
   function payClicked() {
     location.hash = "r";
-    location.reload();
+    setTimeout(() => location.reload(), 5000);
   }
 </script>
