@@ -1,5 +1,5 @@
 <%= form_for @changeset, Routes.order_path(@conn, :create), fn f -> %>
-  <div class="w-10/12 mt-4 p-4 mx-auto border border-black">
+  <div class="w-10/12 mt-4 p-4 mx-auto border border-black rounded">
     <label>
       <p>GrubHub order number:</p>
       <p><%= text_input f, :number, class: "py-1 rounded border-2 text-center font-bold w-20", inputmode: "numeric", maxlength: "3" %></p>
