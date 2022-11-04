@@ -6,10 +6,13 @@
     <%= csrf_meta_tag() %>
     <title>DenDash<%= if assigns[:title], do: " | #{@title}", else: "" %></title>
     <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <script defer type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
-  <body class="bg-red-500 text-gray-800">
-    <div class="bg-gray-200" style="height: 100dvh;">
+  <body class="bg-slate-600 text-gray-800">
+    <div class="bg-slate-800 text-slate-300" style="height: 100dvh;">
       <%= @inner_content %>
     </div>
   </body>

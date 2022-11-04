@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 
 a {
-	@apply underline text-blue-700;
+	@apply underline text-blue-300;
 }
 
 h1 {
@@ -45,5 +45,5 @@ ul li::before {
 }
 
 .invalid-feedback {
-	@apply text-red-600 font-bold;
+	@apply text-rose-500 font-bold;
 }

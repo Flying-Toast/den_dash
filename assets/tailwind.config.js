@@ -11,6 +11,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+	  fontFamily: {
+		  'header': ['Montserrat', 'serif'], 
+	  }
   },
   plugins: [
     require('@tailwindcss/forms')

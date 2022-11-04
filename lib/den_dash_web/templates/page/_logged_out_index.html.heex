@@ -1,11 +1,13 @@
-<h1 class="text-center text-6xl font-serif mt-2 mb-4">Den,<br>Delivered.</h1>
+<div class="w-10/12 m-auto">
+  <h1 class="text-5xl text-yellow-500 font-header mt-2 mb-4">Den,<br>Delivered.</h1>
 
-<div class="flex flex-col items-center">
-  <ol class="text-lg">
-    <li>1. Order from The Den on GrubHub</li>
-    <li>2. Submit to DenDash</li>
-    <li>3. Pick up in Carlton Commons</li>
-  </ol>
+  <div class="flex flex-col">
+    <ol class="text-lg">
+      <li>1. Order from The Den on GrubHub</li>
+      <li>2. Submit to DenDash</li>
+      <li>3. Pick up in Carlton Commons</li>
+    </ol>
 
-  <%= link "Get Started", class: "button-green mt-4", to: Routes.login_path(@conn, :login) %>
+  </div>
+  <%= link "Get Started", class: "button-green w-auto mt-4", to: Routes.login_path(@conn, :login) %>
 </div>
