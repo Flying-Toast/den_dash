@@ -23,6 +23,14 @@ if config_env() == :prod do
     notifications_email_password: System.get_env("NOTIFICATIONS_EMAIL_PASSWORD") ||
                                     raise("Missing NOTIFICATIONS_EMAIL_PASSWORD env var")
 
+  config :den_dash, DenDash.Mailer,
+    adapter: Swoosh.Adapters.SMTP,
+    relay: "smtp.office365.com",
+    username: "dendashcwru@outlook.com",
+    password: System.get_env("NOTIFIER_EMAIL_PASSWORD") || raise("Missing NOTIFIER_EMAIL_PASSWORD env var"),
+    auth: :always,
+    port: 587
+
   database_path =
     System.get_env("DATABASE_PATH") ||
       raise """

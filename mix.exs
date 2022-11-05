@@ -49,7 +49,8 @@ defmodule DenDash.MixProject do
       {:httpoison, "~> 1.8"},
       {:mailroom, "~> 0.3"},
       {:floki, "~> 0.33"},
-      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:gen_smtp, "~> 1.2"}
     ]
   end
 

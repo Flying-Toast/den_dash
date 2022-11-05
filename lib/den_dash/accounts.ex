@@ -33,4 +33,8 @@ defmodule DenDash.Accounts do
   def employee?(user) do
     user.caseid in Application.fetch_env!(:den_dash, :employee_caseids)
   end
+
+  def user_email(user) do
+    "#{user.caseid}@case.edu"
+  end
 end
