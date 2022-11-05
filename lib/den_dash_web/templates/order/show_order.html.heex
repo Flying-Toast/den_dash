@@ -3,10 +3,10 @@
     <p>Your order has been delivered! You can pick it up in Carlton Commons.</p>
 
   <% @order.picked_up -> %>
-    <p>Your order is on the way! It will be delivered to Carlton soon.</p>
+    <p>Your order is on the way! Check your @case.edu email for a notification when it gets dropped off at Carlton Commons.</p>
 
   <% @order.paid -> %>
-    <p>This order is being processed! It will be dropped off in Carlton Commons during the next delivery slot.</p>
+    <p>This order is being processed! Keep an eye on your @case.edu email for a notification when it is ready.</p>
 
   <% true -> %>
     <p class="text-center mb-4">Please finish payment to complete your order.</p>
