@@ -50,7 +50,8 @@ defmodule DenDash.MixProject do
       {:mailroom, "~> 0.3"},
       {:floki, "~> 0.33"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
-      {:gen_smtp, "~> 1.2"}
+      {:gen_smtp, "~> 1.2"},
+      {:tzdata, "~> 1.1"}
     ]
   end
 

@@ -26,6 +26,8 @@ config :den_dash, DenDashWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :den_dash, DenDash.Mailer, adapter: Swoosh.Adapters.Local
 
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
 

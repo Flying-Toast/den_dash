@@ -1,7 +1,7 @@
 defmodule DenDashWeb.Router do
   use DenDashWeb, :router
   alias DenDashWeb.Router.Helpers, as: Routes
-  alias DenDash.Accounts
+  alias DenDash.{Accounts, Fulfilment}
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -46,6 +46,16 @@ defmodule DenDashWeb.Router do
     end
   end
 
+  def must_be_open(conn, _opts) do
+    if Fulfilment.accepting_orders?() do
+      conn
+    else
+      conn
+      |> render(DenDashWeb.FulfilmentView, "closed.html", title: "We're Closed 😢", layout: {DenDashWeb.LayoutView, :app})
+      |> halt()
+    end
+  end
+
   scope "/", DenDashWeb do
     pipe_through [:browser]
 
@@ -62,12 +72,16 @@ defmodule DenDashWeb.Router do
     get "/support", PageController, :support
 
     scope "/orders" do
-      get "/", OrderController, :list
-      get "/new", OrderController, :order_form
-      post "/new", OrderController, :create
-      get "/:id/pay", OrderController, :pay
-      post "/:id/cancel", OrderController, :cancel
+      scope "/" do
+        pipe_through [:must_be_open]
 
+        get "/new", OrderController, :order_form
+        post "/new", OrderController, :create
+        get "/:id/pay", OrderController, :pay
+      end
+
+      get "/", OrderController, :list
+      post "/:id/cancel", OrderController, :cancel
       get "/:id", OrderController, :show
     end
   end
