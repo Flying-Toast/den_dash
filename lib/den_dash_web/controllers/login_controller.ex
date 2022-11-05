@@ -10,7 +10,7 @@ defmodule DenDashWeb.LoginController do
 
     case String.split(body, "\n", trim: true) do
       ["no"] ->
-        render(conn, "failed.html")
+        render(conn, "failed.html", title: "Login Failed")
 
       ["yes", caseid] ->
         conn = put_session(conn, "caseid", caseid)
