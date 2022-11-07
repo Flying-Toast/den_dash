@@ -6,7 +6,7 @@ defmodule DenDash.Accounts do
 
   defp create_user(caseid) do
     %User{}
-    |> User.changeset(%{caseid: caseid})
+    |> User.changeset(%{caseid: caseid, is_regular_employee: false})
     |> Repo.insert!()
   end
 
@@ -33,6 +33,10 @@ defmodule DenDash.Accounts do
   def employee?(user) do
     user.is_regular_employee
     or
+    super_employee?(user)
+  end
+
+  def super_employee?(user) do
     user.caseid in Application.fetch_env!(:den_dash, :superemployee_caseids)
   end
 

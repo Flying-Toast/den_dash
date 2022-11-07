@@ -1,0 +1,15 @@
+<%= form_for @settings, Routes.fulfilment_path(@conn, :change_settings), [method: :post], fn f -> %>
+  <label>
+    <p>Open now:</p>
+    <p><%= checkbox f, :open_now %></p>
+    <p><%= error_tag f, :open_now %></p>
+  </label>
+
+  <label>
+    <p>Order cost:</p>
+    <p><%= text_input f, :order_cost %></p>
+    <p><%= error_tag f, :order_cost %></p>
+  </label>
+
+  <%= submit "Submit", class: "button-blue" %>
+<% end %>

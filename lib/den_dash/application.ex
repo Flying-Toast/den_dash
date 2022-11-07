@@ -29,7 +29,9 @@ defmodule DenDash.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: DenDash.Supervisor]
-    Supervisor.start_link(children, opts)
+    res = Supervisor.start_link(children, opts)
+    DenDash.Settings.prefill_defaults()
+    res
   end
 
   # Tell Phoenix to update the endpoint configuration

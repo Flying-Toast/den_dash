@@ -7,7 +7,13 @@
     <%= link "Submit an order", class: "button-green mt-2", to: Routes.order_path(@conn, :order_form) %>
   </p>
 
-  <%= if DenDash.Accounts.employee?(@me) do %>
-    <%= link "Order fulfilment", class: "button-gray mt-3", to: Routes.fulfilment_path(@conn, :index) %>
-  <% end %>
+  <p>
+    <%= if DenDash.Accounts.employee?(@me) do %>
+      <%= link "Order fulfilment", class: "button-gray mt-3", to: Routes.fulfilment_path(@conn, :index) %>
+    <% end %>
+
+    <%= if DenDash.Accounts.super_employee?(@me) do %>
+      <%= link "Settings (Admin)", class: "button-gray mt-3", to: Routes.fulfilment_path(@conn, :settings) %>
+    <% end %>
+  </p>
 </div>

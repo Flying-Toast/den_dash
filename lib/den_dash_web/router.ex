@@ -46,6 +46,19 @@ defmodule DenDashWeb.Router do
     end
   end
 
+  def superemployees_only(conn, _opts) do
+    if Accounts.super_employee?(conn.assigns.me) do
+      conn
+    else
+      conn
+      |> put_status(404)
+      |> put_root_layout(false)
+      |> put_view(DenDashWeb.ErrorView)
+      |> render("404.html")
+      |> halt()
+    end
+  end
+
   def must_be_open(conn, _opts) do
     if Fulfilment.accepting_orders?() do
       conn
@@ -92,6 +105,13 @@ defmodule DenDashWeb.Router do
     get "/", FulfilmentController, :index
     post "/pickup", FulfilmentController, :picked_up
     post "/deliver", FulfilmentController, :delivered
+  end
+
+  scope "/admin", DenDashWeb do
+    pipe_through [:browser, :require_login, :superemployees_only]
+
+    get "/", FulfilmentController, :settings
+    post "/change-settings", FulfilmentController, :change_settings
   end
 
   # Enables the Swoosh mailbox preview in development.

@@ -5,7 +5,7 @@ defmodule DenDash.Payment do
   @tag_extractor ~r/!(\S+)!/
 
   def process_venmo_payment(note, amount) do
-    required_amount = Application.fetch_env!(:den_dash, :order_cost)
+    required_amount = DenDash.Settings.order_cost()
 
     case Regex.run(@tag_extractor, note, capture: :all_but_first) do
       [venmo_tag] ->
