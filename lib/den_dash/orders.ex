@@ -1,7 +1,7 @@
 defmodule DenDash.Orders do
   import Ecto.Query, warn: false
   import Ecto.Changeset
-  alias DenDash.{Repo, Orders.Order}
+  alias DenDash.{Repo, Orders.Order, Settings}
 
   def unpicked_paid_orders() do
     Repo.all(from o in Order, where: o.paid and not o.picked_up)
@@ -69,7 +69,8 @@ defmodule DenDash.Orders do
       venmo_note_tag: gen_venmo_tag(),
       paid: false,
       picked_up: false,
-      delivered: false
+      delivered: false,
+      price: Settings.order_cost()
     })
     |> Order.changeset(order_attrs)
     |> Repo.insert()

@@ -5,13 +5,11 @@ defmodule DenDash.Payment do
   @tag_extractor ~r/!(\S+)!/
 
   def process_venmo_payment(note, amount) do
-    required_amount = DenDash.Settings.order_cost()
-
     case Regex.run(@tag_extractor, note, capture: :all_but_first) do
       [venmo_tag] ->
         matching_order = Orders.get_order_by_venmo_tag(venmo_tag)
         cond do
-          amount != required_amount ->
+          amount != matching_order.price ->
             Logger.warn("Received venmo payment with wrong amount. Note: `#{note}`, Amount: `#{amount}`")
 
           matching_order == nil ->

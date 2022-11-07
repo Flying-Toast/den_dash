@@ -11,6 +11,7 @@ defmodule DenDash.Orders.Order do
     field :grubhub_name, :string
     field :picked_up, :boolean
     field :delivered, :boolean
+    field :price, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -19,8 +20,9 @@ defmodule DenDash.Orders.Order do
     order
     # cast is USER-EDITABLE stuff
     |> cast(attrs, [:number, :grubhub_name])
-    |> validate_required([:number, :venmo_note_tag, :paid, :grubhub_name, :delivered, :picked_up])
+    |> validate_required([:number, :venmo_note_tag, :paid, :grubhub_name, :delivered, :picked_up, :price])
     |> validate_number(:number, greater_than: 0)
     |> validate_length(:grubhub_name, max: 150)
+    |> validate_format(:price, ~r/^\d+\.\d\d$/)
   end
 end
