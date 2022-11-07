@@ -33,10 +33,9 @@ defmodule DenDash.PaymentWatcher do
         [{"p", [], [venmo_note]}] = Floki.find(html, "table td div p")
         [{"span", _attrs, [raw_transfer_amount]}] = Floki.find(html, ~s(td span[style]))
 
-        {venmo_amount, _} = raw_transfer_amount
-                            |> String.trim()
-                            |> String.trim_leading("+ $")
-                            |> Float.parse()
+        venmo_amount = raw_transfer_amount
+                       |> String.trim()
+                       |> String.trim_leading("+ $")
 
         DenDash.Payment.process_venmo_payment(venmo_note, venmo_amount)
       end
