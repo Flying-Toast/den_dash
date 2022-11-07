@@ -5,6 +5,7 @@ defmodule DenDash.Accounts.User do
 
   schema "users" do
     field :caseid, :string
+    field :is_regular_employee, :boolean
     has_many :orders, Order
 
     timestamps(type: :utc_datetime)
@@ -13,7 +14,7 @@ defmodule DenDash.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:caseid])
-    |> validate_required([:caseid])
+    |> cast(attrs, [:caseid, :is_regular_employee])
+    |> validate_required([:caseid, :is_regular_employee])
   end
 end

@@ -31,7 +31,9 @@ defmodule DenDash.Accounts do
   end
 
   def employee?(user) do
-    user.caseid in Application.fetch_env!(:den_dash, :employee_caseids)
+    user.is_regular_employee
+    or
+    user.caseid in Application.fetch_env!(:den_dash, :superemployee_caseids)
   end
 
   def user_email(user) do
