@@ -28,16 +28,18 @@ defmodule DenDashWeb.FulfilmentController do
   def settings(conn, _params) do
     settings = Settings.get()
                |> Settings.changeset(%{})
-    render(conn, "settings.html", settings: settings)
+    render(conn, "settings.html", title:  "Settings ⚙️", settings: settings)
   end
 
   def change_settings(conn, %{"settings" => settings}) do
     case Settings.get() |> Settings.changeset(settings) |> Repo.update() do
       {:ok, _} ->
-        redirect(conn, to: Routes.fulfilment_path(conn, :settings))
+        conn
+        |> put_flash(:info, "Settings saved.")
+        |> redirect(to: Routes.fulfilment_path(conn, :settings))
 
       {:error, changeset} ->
-        render(conn, "settings.html", settings: changeset)
+        render(conn, "settings.html", title: "Settings ⚙️", settings: changeset)
     end
   end
 end
