@@ -51,6 +51,7 @@ defmodule DenDash.MixProject do
       {:floki, "~> 0.33"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:gen_smtp, "~> 1.2"},
+      {:logger_file_backend, "~> 0.0.13"},
       {:tzdata, "~> 1.1"}
     ]
   end

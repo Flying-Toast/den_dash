@@ -17,6 +17,16 @@ config :den_dash, DenDashWeb.Endpoint,
   pubsub_server: DenDash.PubSub,
   live_view: [signing_salt: "qChU7OrA"]
 
+# Configures Elixir's Logger
+config :logger,
+  backends: [:console, {LoggerFileBackend, :error_log}],
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:request_id]
+
+config :logger, :error_log,
+  path: "./error.log",
+  level: :error
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
@@ -49,11 +59,6 @@ config :tailwind, version: "3.1.6", default: [
   ),
   cd: Path.expand("../assets", __DIR__)
 ]
-
-# Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
