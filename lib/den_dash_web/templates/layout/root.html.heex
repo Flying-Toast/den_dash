@@ -6,7 +6,6 @@
     <%= csrf_meta_tag() %>
     <title>DenDash<%= if assigns[:title], do: " | #{@title}", else: "" %></title>
     <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}>
-    <link rel="icon" href={Routes.static_path(@conn, "/favicon.png")}>
     <script defer type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body class="bg-gray-200 text-gray-800">
