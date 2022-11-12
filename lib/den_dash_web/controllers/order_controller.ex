@@ -4,14 +4,18 @@ defmodule DenDashWeb.OrderController do
 
   def order_form(conn, _params) do
     changeset = Order.changeset(%Order{}, %{grubhub_name: Orders.name_on_users_most_recent_order(conn.assigns.me)})
-    render(conn, "order_form.html", title: "Submit Order 📝", changeset: changeset)
+    is_promo = Orders.do_first_order_promo?(conn.assigns.me)
+
+    render(conn, "order_form.html", title: "Submit Order 📝", changeset: changeset, is_promo: is_promo)
   end
 
   def create(conn, %{"order" => order}) do
+    is_promo = Orders.do_first_order_promo?(conn.assigns.me)
+
     if Orders.user_has_unpaid_order(conn.assigns.me) do
       conn
       |> put_flash(:error, "You have another order that has not yet been paid. Please complete payment or cancel it before placing another.")
-      |> render("order_form.html", title: "Submit Order 📝", changeset: Order.changeset(%Order{}, order))
+      |> render("order_form.html", title: "Submit Order 📝", changeset: Order.changeset(%Order{}, order), is_promo: is_promo)
     else
       case Orders.new_order(conn.assigns.me, order) do
         {:ok, changeset} ->
@@ -20,7 +24,7 @@ defmodule DenDashWeb.OrderController do
           |> redirect(to: Routes.order_path(conn, :show, changeset.id))
 
         {:error, changeset} ->
-          render(conn, "order_form.html", title: "Submit Order 📝", changeset: changeset)
+          render(conn, "order_form.html", title: "Submit Order 📝", changeset: changeset, is_promo: is_promo)
       end
     end
   end

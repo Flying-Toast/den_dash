@@ -63,11 +63,13 @@ defmodule DenDash.Orders do
   end
 
   def new_order(user, order_attrs) do
+    is_prepaid = do_first_order_promo?(user)
+
     %Order{}
     |> change(%{
       user_id: user.id,
       venmo_note_tag: gen_venmo_tag(),
-      paid: false,
+      paid: is_prepaid,
       picked_up: false,
       delivered: false,
       price: Settings.order_cost()
@@ -78,6 +80,16 @@ defmodule DenDash.Orders do
 
   def user_has_unpaid_order(user) do
     Repo.exists?(from o in Order, where: o.user_id == ^user.id and not o.paid)
+  end
+
+  def do_first_order_promo?(user) do
+    today = DateTime.utc_now()
+            |> DateTime.shift_zone!("America/New_York")
+            |> DateTime.to_date()
+
+    (:eq == Date.compare(today, ~D[2022-11-18]))
+    and
+    not Repo.exists?(from o in Order, where: o.user_id == ^user.id)
   end
 
   def name_on_users_most_recent_order(user) do
