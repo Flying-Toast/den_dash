@@ -36,6 +36,4 @@ npm-debug.log
 *.db
 *.db-*
 
-/rel
-
 /error.log
