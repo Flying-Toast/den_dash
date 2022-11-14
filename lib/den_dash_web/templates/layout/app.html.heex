@@ -1,6 +1,11 @@
 <header class="bg-red-500 flex py-2 pl-1 pr-2 justify-between rounded-b-sm">
   <div class="flex justify-start">
-    <%= link "🥞 DenDash", class: "text-yellow-400 text-3xl font-bold pr-2 no-underline", to: Routes.page_path(@conn, :index) %>
+    <a class="text-yellow-400 text-3xl font-bold pr-2 no-underline" href={Routes.page_path(@conn, :index)}>
+      <p class="flex">
+        <img class="inline w-10 mr-1" src={Routes.static_path(@conn, "/images/logo.png")}>
+        DenDash
+      </p>
+    </a>
   </div>
 
   <div class="flex items-center">
