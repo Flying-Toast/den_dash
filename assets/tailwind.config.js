@@ -10,7 +10,11 @@ module.exports = {
     '../lib/*_web/**/*.*ex'
   ],
   theme: {
-    extend: {},
+    extend: {
+        fontFamily: {
+            riffic: ['riffic']
+	}
+    },
   },
   plugins: [
     require('@tailwindcss/forms')

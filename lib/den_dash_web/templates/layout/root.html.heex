@@ -7,6 +7,14 @@
     <title>DenDash<%= if assigns[:title], do: " | #{@title}", else: "" %></title>
     <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}>
     <link rel="icon" href="favicon.ico">
+    <style>
+      @font-face {
+        font-family: 'riffic';
+        src: url('<%= Routes.static_path(@conn, "/fonts/riffic.woff2") %>');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
     <script defer type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body class="bg-gray-200 text-gray-800">
