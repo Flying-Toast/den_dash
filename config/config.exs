@@ -25,7 +25,7 @@ config :logger,
 
 config :logger, :error_log,
   path: "./error.log",
-  level: :error
+  level: :warn
 
 # Configures the mailer
 #
