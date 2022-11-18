@@ -64,7 +64,7 @@ defmodule DenDashWeb.Router do
       conn
     else
       conn
-      |> render(DenDashWeb.FulfilmentView, "closed.html", layout: {DenDashWeb.LayoutView, :app})
+      |> render(DenDashWeb.FulfilmentView, "closed.html", title: "We're Closed 😢", layout: {DenDashWeb.LayoutView, :app})
       |> halt()
     end
   end
