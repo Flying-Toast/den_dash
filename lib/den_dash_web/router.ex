@@ -110,8 +110,12 @@ defmodule DenDashWeb.Router do
   scope "/admin", DenDashWeb do
     pipe_through [:browser, :require_login, :superemployees_only]
 
-    get "/", FulfilmentController, :settings
+    get "/", FulfilmentController, :admin
+    get "/settings", FulfilmentController, :settings
     post "/change-settings", FulfilmentController, :change_settings
+    get "/employees", FulfilmentController, :employees
+    post "/employees/add", FulfilmentController, :add_employee
+    post "/employees/remove", FulfilmentController, :remove_employee
   end
 
   # Enables the Swoosh mailbox preview in development.

@@ -1,6 +1,6 @@
 defmodule DenDashWeb.FulfilmentController do
   use DenDashWeb, :controller
-  alias DenDash.{Repo, Orders, Fulfilment.DeliveryNotifier, Settings}
+  alias DenDash.{Repo, Orders, Fulfilment.DeliveryNotifier, Settings, Accounts}
 
   def index(conn, _params) do
     pickups = Orders.unpicked_paid_orders()
@@ -28,7 +28,7 @@ defmodule DenDashWeb.FulfilmentController do
   def settings(conn, _params) do
     settings = Settings.get()
                |> Settings.changeset(%{})
-    render(conn, "settings.html", title:  "Settings ⚙️", settings: settings)
+    render(conn, "settings.html", title: "Settings ⚙️", settings: settings)
   end
 
   def change_settings(conn, %{"settings" => settings}) do
@@ -41,5 +41,31 @@ defmodule DenDashWeb.FulfilmentController do
       {:error, changeset} ->
         render(conn, "settings.html", title: "Settings ⚙️", settings: changeset)
     end
+  end
+
+  def admin(conn, _params) do
+    render(conn, "admin.html", title: "Admin 📛")
+  end
+
+  def employees(conn, _params) do
+    current_employees = Accounts.list_employees()
+
+    render(conn, "employees.html", title: "Employees 👷", employees: current_employees)
+  end
+
+  def add_employee(conn, %{"caseid" => caseid}) do
+    Accounts.make_employee(caseid)
+
+    conn
+    |> put_flash(:info, "Added #{caseid} as an employee")
+    |> redirect(to: Routes.fulfilment_path(conn, :employees))
+  end
+
+  def remove_employee(conn, %{"user_id" => user_id}) do
+    Accounts.fire_employee_by_id(user_id)
+
+    conn
+    |> put_flash(:info, "Removed employee")
+    |> redirect(to: Routes.fulfilment_path(conn, :employees))
   end
 end

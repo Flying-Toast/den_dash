@@ -13,7 +13,7 @@
     <% end %>
 
     <%= if DenDash.Accounts.super_employee?(@me) do %>
-      <%= link "Settings (Admin)", class: "button-gray mt-3 ml-1", to: Routes.fulfilment_path(@conn, :settings) %>
+      <%= link "Admin", class: "button-gray mt-3 ml-1", to: Routes.fulfilment_path(@conn, :admin) %>
     <% end %>
   </p>
 </div>

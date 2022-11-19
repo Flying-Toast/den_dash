@@ -1,0 +1,24 @@
+<% action = Routes.fulfilment_path(@conn, :add_employee) %>
+<form class="inline" action={action} method="post">
+  <%= csrf_input_tag(action) %>
+  <label>
+    <span>CaseID:</span>
+    <input type="text" name="caseid" class="w-24 mr-1">
+  </label>
+  <input type="submit" value="Add" class="button-blue">
+</form>
+
+<h2 class="mt-4">Current Employees</h2>
+<ul>
+  <%= for employee <- @employees do %>
+    <li>
+      <%= employee.caseid %>
+      <% action = Routes.fulfilment_path(@conn, :remove_employee) %>
+      <form class="inline" action={action} method="post">
+        <%= csrf_input_tag(action) %>
+        <input type="hidden" name="user_id" value={employee.id}>
+        <input type="submit" value="Remove" class="button-red">
+      </form>
+    </li>
+  <% end %>
+</ul>

@@ -36,6 +36,22 @@ defmodule DenDash.Accounts do
     super_employee?(user)
   end
 
+  def list_employees() do
+    Repo.all(from u in User, where: u.is_regular_employee)
+  end
+
+  def make_employee(caseid) do
+    Repo.one!(from u in User, where: u.caseid == ^caseid)
+    |> User.changeset(%{is_regular_employee: true})
+    |> Repo.update!()
+  end
+
+  def fire_employee_by_id(id) do
+    Repo.get!(User, id)
+    |> User.changeset(%{is_regular_employee: false})
+    |> Repo.update!()
+  end
+
   def super_employee?(user) do
     user.caseid in Application.fetch_env!(:den_dash, :superemployee_caseids)
   end
