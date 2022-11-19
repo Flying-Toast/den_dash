@@ -1,4 +1,4 @@
-<h2 class="mt-2">Orders to pick up:</h2>
+<h2 class="mt-2">Orders to pick up (<%= length(@pickups) %>):</h2>
 
 <%= if length(@pickups) == 0 do %>
   None right now!
@@ -19,7 +19,7 @@
 <% end %>
 
 
-<h2 class="mt-2">Undelivered Orders:</h2>
+<h2 class="mt-2">Undelivered Orders (<%= length(@deliveries) %>):</h2>
 
 <%= if length(@deliveries) == 0 do %>
   None right now!
