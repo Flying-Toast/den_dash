@@ -18,6 +18,9 @@
 
     <p class="mt-4 text-center">
       <%= submit "Submit", class: "button-blue" %>
+      <%= if @is_freebie do %>
+        <p class="font-bold text-center">This order is free</p>
+      <% end %>
     </p>
   </div>
 <% end %>

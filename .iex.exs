@@ -5,5 +5,6 @@ alias DenDash.{
   Accounts,
   Accounts.User,
   Orders,
-  Orders.Order
+  Orders.Order,
+  Orders.Freebie
 }

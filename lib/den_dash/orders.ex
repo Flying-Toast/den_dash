@@ -1,7 +1,7 @@
 defmodule DenDash.Orders do
   import Ecto.Query, warn: false
   import Ecto.Changeset
-  alias DenDash.{Repo, Orders.Order, Settings}
+  alias DenDash.{Repo, Orders.Order, Settings, Orders.Freebie}
 
   def unpicked_paid_orders() do
     Repo.all(from o in Order, where: o.paid and not o.picked_up)
@@ -62,12 +62,25 @@ defmodule DenDash.Orders do
     end
   end
 
+  def next_order_will_be_freebie?(user) do
+    Repo.exists?(from f in Freebie, where: f.user_id == ^user.id, limit: 1)
+  end
+
   def new_order(user, order_attrs) do
+    freebie = Repo.one(from f in Freebie, where: f.user_id == ^user.id, limit: 1)
+    is_prepaid =
+      if freebie == nil do
+        false
+      else
+        Repo.delete(freebie)
+        true
+      end
+
     %Order{}
     |> change(%{
       user_id: user.id,
       venmo_note_tag: gen_venmo_tag(),
-      paid: false,
+      paid: is_prepaid,
       picked_up: false,
       delivered: false,
       price: Settings.order_cost()
